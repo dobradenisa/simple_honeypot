@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  honeypot:
+    build: .
+    container_name: web-honeypot
+    ports:
+      - "80:8080"
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
