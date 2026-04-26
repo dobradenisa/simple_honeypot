@@ -8,10 +8,12 @@ paths = Counter()
 sigs = Counter()
 uas = Counter()
 
-for file in glob.glob("logs/honeypot-*.jsonl"):
+for file in sorted(glob.glob("Logs/honeypot-*.jsonl")):
     for line in open(file, "r", encoding="utf-8"):
         e = json.loads(line)
-        ips[e["ip"]] += 1
+        ip = e.get("ip") or e.get("src_ip")
+        if ip:
+            ips[ip] += 1
         paths[e["path"]] += 1
         uas[e["user_agent"]] += 1
         for s in e["signatures"]:
